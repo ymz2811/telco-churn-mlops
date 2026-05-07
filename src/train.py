@@ -77,7 +77,7 @@ def main():
             pipeline.fit(X_train, y_train)
             metrics = evaluate(pipeline, X_test, y_test)
 
-            mlflow.log_params(candidate["params"])
+            mlflow.log_params({**candidate["params"], "feature_engineering": True})
             mlflow.log_metrics(metrics)
             mlflow.sklearn.log_model(pipeline, artifact_path="model")
 
@@ -100,7 +100,10 @@ def main():
     client.set_registered_model_alias(MODEL_NAME, "champion", registered.version)
 
     # Save locally for Docker — decouples deployment from MLflow tracking server
+    import shutil
     output_path = Path(__file__).parent.parent / "model"
+    if output_path.exists():
+        shutil.rmtree(output_path)
     best_pipeline = mlflow.sklearn.load_model(model_uri)
     mlflow.sklearn.save_model(best_pipeline, str(output_path))
 

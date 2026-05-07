@@ -1,9 +1,13 @@
+import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 import mlflow.sklearn
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+from feature_engineering import add_features  # noqa: E402
 
 from .schemas import CustomerFeatures, PredictionResponse
 
@@ -38,7 +42,7 @@ def predict(features: CustomerFeatures):
     if _pipeline is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
 
-    df = pd.DataFrame([features.model_dump()])
+    df = add_features(pd.DataFrame([features.model_dump()]))
     proba = float(_pipeline.predict_proba(df)[0][1])
     prediction = proba >= 0.5
     risk = "high" if proba >= 0.7 else "medium" if proba >= 0.4 else "low"
