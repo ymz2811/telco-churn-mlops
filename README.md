@@ -16,14 +16,7 @@ End-to-end ML project: training with experiment tracking, a REST inference API, 
 
 ## Results
 
-| Model | ROC-AUC | Accuracy | F1 |
-|---|---|---|---|
-| Logistic Regression | ~0.843 | ~0.800 | ~0.590 |
-| Random Forest | ~0.827 | ~0.798 | ~0.572 |
-| XGBoost | ~0.851 | ~0.806 | ~0.601 |
-| XGBoost (tuned) | **~0.854** | ~0.810 | ~0.608 |
 
-Best model is automatically registered in the MLflow Model Registry with the alias `champion`.
 
 ## Project Structure
 
