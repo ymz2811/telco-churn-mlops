@@ -16,6 +16,12 @@ End-to-end ML project: training with experiment tracking, a REST inference API, 
 
 ## Results
 
+| Model | ROC-AUC | Accuracy | F1 |
+|---|---|---|---|
+| Logistic Regression | **0.8359** | 0.8045 | 0.6099 |
+| Random Forest | 0.8302 | 0.7910 | 0.5676 |
+| XGBoost | 0.8286 | 0.7861 | 0.5706 |
+| XGBoost (tuned) | 0.8357 | 0.7939 | 0.5821 |
 
 
 ## Project Structure
